@@ -14,8 +14,8 @@ const Router = createBrowserRouter([
   {
     path: '/recipes',
     element: <Recipes />,
-    children: [{ path: '/recipes/:id', element: <Recipe /> }],
   },
+  { path: '/recipes/:id', element: <Recipe /> },
 ]);
 
 function App() {

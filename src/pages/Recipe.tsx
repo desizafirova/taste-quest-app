@@ -1,5 +1,11 @@
+import RecipeInformation from '../components/RecipeInformation';
+
 function Recipe() {
-  return <div></div>;
+  return (
+    <div>
+      <RecipeInformation />
+    </div>
+  );
 }
 
 export default Recipe;
