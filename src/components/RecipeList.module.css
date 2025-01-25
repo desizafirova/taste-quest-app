@@ -1,0 +1,16 @@
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  list-style-type: none;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+li {
+  width: 30rem;
+}
+
+h2 {
+  text-wrap-mode: stable;
+}
