@@ -1,16 +1,28 @@
-ul {
+.styleUl {
   display: flex;
   flex-wrap: wrap;
   gap: 5rem;
   list-style-type: none;
   max-width: 70%;
-  margin: 0 auto;
+  margin: 1.5rem auto;
 }
 
-li {
+.styleLi {
   width: 30rem;
 }
 
-h2 {
+.h2 {
   text-wrap-mode: stable;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 7%;
+}
+
+.img {
+  border-top-left-radius: 7%;
+  border-top-right-radius: 7%;
 }

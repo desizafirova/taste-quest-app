@@ -7,4 +7,10 @@
 
 .flexUl {
   list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rem;
+  list-style-type: none;
+  max-width: 70%;
+  margin: 1.5rem auto;
 }

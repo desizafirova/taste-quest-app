@@ -18,11 +18,13 @@ function RecipeList() {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <ul style={styles}>
+    <ul className={styles.styleUl}>
       {data?.results.map((recipe) => (
-        <li key={recipe.id} style={styles}>
-          <img src={recipe.image} alt={recipe.title} />
-          <h2 style={styles}>{recipe.title}</h2>
+        <li key={recipe.id} className={(styles.flex, styles.styleLi)}>
+          <div>
+            <img src={recipe.image} alt={recipe.title} className={styles.img} />
+            <h2 className={styles.h2}>{recipe.title}</h2>
+          </div>
           <Button
             onClick={() => {
               navigate(`/recipes/${recipe.id}`); // Navigate to recipe page with the recipe ID as a parameter
