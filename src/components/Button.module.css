@@ -1,2 +1,11 @@
 .button {
+  list-style: none;
+  font-size: 1.6rem;
+  color: var(--color-dark--3);
+  font-weight: 500;
+}
+
+.button:hover {
+  color: var(--color-dark--2);
+  font-weight: 700;
 }

@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import styles from './Button.module.css';
 
 type ButtonProps = {
   href?: never;
@@ -19,13 +20,13 @@ function isAnchorProps(props: ButtonProps | AnchorProps): props is AnchorProps {
 export default function Button(props: ButtonOrAnchorProps) {
   if (isAnchorProps(props))
     return (
-      <a className="button" {...props}>
+      <a className={styles.button} {...props}>
         {props.children}
       </a>
     );
 
   return (
-    <button className="button" {...props}>
+    <button className={styles.button} {...props}>
       {props.children}
     </button>
   );
