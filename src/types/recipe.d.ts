@@ -1,5 +1,5 @@
 export type Recipe = {
-  id: number;
+  id: number | string;
   title: string;
   image: string;
   imageType: string;
@@ -41,3 +41,5 @@ interface AnalyzedRecipe {
   name: string;
   steps: Step[];
 }
+
+type AnalyzedRecipeArr = AnalyzedRecipe[];
