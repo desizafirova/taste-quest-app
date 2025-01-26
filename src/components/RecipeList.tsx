@@ -20,7 +20,7 @@ function RecipeList() {
   return (
     <ul className={styles.styleUl}>
       {data?.results.map((recipe) => (
-        <li key={recipe.id} className={(styles.flex, styles.styleLi)}>
+        <li key={recipe.id} className={styles.flex}>
           <div>
             <img src={recipe.image} alt={recipe.title} className={styles.img} />
             <h2 className={styles.h2}>{recipe.title}</h2>

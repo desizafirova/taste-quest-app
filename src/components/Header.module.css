@@ -1,7 +1,7 @@
 .headerPosition {
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 100dvw;
   background-color: var(--color-light--2-rgb);
   height: 10dvh;
   z-index: 9999;
