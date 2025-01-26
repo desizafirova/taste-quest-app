@@ -1,0 +1,7 @@
+.headerPosition {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-light--2-rgb);
+  margin-bottom: 0.3rem;
+}
