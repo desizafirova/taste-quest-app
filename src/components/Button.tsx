@@ -4,14 +4,14 @@ import styles from './Button.module.css';
 type ButtonProps = {
   href?: never;
   children: ReactNode;
-  textOnly: boolean;
-} & ComponentPropsWithoutRef<'button'>;
+  textOnly?: boolean;
+} & Omit<ComponentPropsWithoutRef<'button'>, 'textOnly'>;
 
 type AnchorProps = {
   href?: string;
   children: ReactNode;
-  textOnly: boolean;
-} & ComponentPropsWithoutRef<'a'>;
+  textOnly?: boolean;
+} & Omit<ComponentPropsWithoutRef<'a'>, 'textOnly'>;
 
 type ButtonOrAnchorProps = ButtonProps | AnchorProps;
 
@@ -20,20 +20,28 @@ function isAnchorProps(props: ButtonProps | AnchorProps): props is AnchorProps {
 }
 
 export default function Button(props: ButtonOrAnchorProps) {
-  const className = props.textOnly
+  const { textOnly, children, ...otherProps } = props;
+
+  const className = textOnly
     ? `${styles.button} ${styles.buttonTextOnly}`
     : styles.button;
 
   if (isAnchorProps(props))
     return (
-      <a className={className} {...props}>
-        {props.children}
+      <a
+        className={className}
+        {...(otherProps as ComponentPropsWithoutRef<'a'>)}
+      >
+        {children}
       </a>
     );
 
   return (
-    <button className={className} {...props}>
-      {props.children}
+    <button
+      className={className}
+      {...(otherProps as ComponentPropsWithoutRef<'button'>)}
+    >
+      {children}
     </button>
   );
 }

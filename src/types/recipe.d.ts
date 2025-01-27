@@ -12,21 +12,21 @@ export type FetchedRecipesResponse = {
   totalResults: number;
 };
 // For fetchRecipe
-interface Ingredient {
+export interface Ingredient {
   id: number;
   name: string;
   localizedName: string;
   image: string;
 }
 
-interface Equipment {
+export interface Equipment {
   id: number;
   name: string;
   localizedName: string;
   image: string;
 }
 
-interface Step {
+export interface Step {
   number: number;
   step: string;
   ingredients: Ingredient[];
@@ -37,9 +37,14 @@ interface Step {
   };
 }
 
-interface AnalyzedRecipe {
+export interface AnalyzedRecipe {
   name: string;
   steps: Step[];
 }
 
-type AnalyzedRecipeArr = AnalyzedRecipe[];
+export type AnalyzedRecipeArr = AnalyzedRecipe[];
+
+export type fetchPaginationProp = {
+  number: number;
+  offset: number;
+};
