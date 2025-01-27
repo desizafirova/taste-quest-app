@@ -20,19 +20,28 @@ function RecipeList() {
   return (
     <ul className={styles.styleUl}>
       {data?.results.map((recipe) => (
-        <li key={recipe.id} className={styles.flex}>
-          <div>
-            <img src={recipe.image} alt={recipe.title} className={styles.img} />
-            <h2 className={styles.h2}>{recipe.title}</h2>
-          </div>
-          <Button
-            onClick={() => {
-              navigate(`/recipes/${recipe.id}`); // Navigate to recipe page with the recipe ID as a parameter
-            }}
-          >
-            Go to the recipe &rarr;
-          </Button>
-        </li>
+        <div className={styles.containerCard}>
+          <li key={recipe.id} className={styles.flex}>
+            <div>
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className={styles.img}
+              />
+              <h2 className={styles.h2}>{recipe.title}</h2>
+            </div>
+            <div className={styles.cardFooter}>
+              <Button
+                textOnly={false}
+                onClick={() => {
+                  navigate(`/recipes/${recipe.id}`);
+                }}
+              >
+                Go to the recipe &rarr;
+              </Button>
+            </div>
+          </li>
+        </div>
       ))}
     </ul>
   );

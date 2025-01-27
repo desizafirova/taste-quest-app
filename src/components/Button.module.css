@@ -1,11 +1,31 @@
 .button {
-  list-style: none;
-  font-size: 1.6rem;
-  color: var(--color-dark--3);
-  font-weight: 500;
+  background-color: var(--color-khaki);
+  color: var(--color-dun-light);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 3rem;
+  cursor: pointer;
+  text-decoration: none;
+  font: inherit;
+  transition: all 0.5s ease;
+  font-size: 1.4rem;
 }
 
-.button:hover {
-  color: var(--color-dark--2);
+.button:hover,
+.button:active {
+  background-color: var(--color-khaki-dark);
+  color: var(--color-dun-light);
+}
+
+.button.buttonTextOnly {
+  background-color: transparent;
+  color: var(--color-charcoal);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button.buttonTextOnly:hover,
+.button.buttonTextOnly:active {
+  color: var(--color-charcoal);
   font-weight: 700;
 }

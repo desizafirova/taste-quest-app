@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   width: 100dvw;
-  background-color: var(--color-light--2-rgb);
+  background-color: var(--color-coyote);
   height: 10dvh;
   z-index: 9999;
 }
