@@ -11,19 +11,26 @@ function Navigation() {
         </div>
 
         <ul className={styles.flexUl}>
+          <div className={styles.flex}>
+            <li>
+              <Button textOnly={true} href="/">
+                Home
+              </Button>
+            </li>
+            <li>
+              <Button textOnly={true} href="/ourmission">
+                Our Mission
+              </Button>
+            </li>
+            <li>
+              <Button textOnly={true} href="/recipes">
+                Recipes
+              </Button>
+            </li>
+          </div>
           <li>
-            <Button textOnly={true} href="/">
-              Home
-            </Button>
-          </li>
-          <li>
-            <Button textOnly={true} href="/ourmission">
-              Our Mission
-            </Button>
-          </li>
-          <li>
-            <Button textOnly={true} href="/recipes">
-              Recipes
+            <Button textOnly={true} href="/login">
+              Login
             </Button>
           </li>
         </ul>

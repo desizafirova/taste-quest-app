@@ -9,9 +9,18 @@
 .flexUl {
   list-style-type: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10rem;
-  list-style-type: none;
-  max-width: 70%;
-  margin: 1.5rem auto;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  gap: 2rem;
+}
+
+.flexUl > li:last-child {
+  margin-left: auto;
 }

@@ -1,7 +1,7 @@
-import Modal from '../components/Modal';
+import LoginComponent from '../components/LoginComponent';
 
 function Login() {
-  return <Modal />;
+  return <LoginComponent />;
 }
 
 export default Login;

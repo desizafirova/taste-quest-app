@@ -7,6 +7,7 @@ import Recipe from './pages/Recipe';
 import Home from './pages/Home';
 import AppLayout from './components/AppLayout';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Login from './pages/Login';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const Router = createBrowserRouter([
         element: <Recipes />,
       },
       { path: '/recipes/:id', element: <Recipe /> },
+      { path: '/login', element: <Login /> },
     ],
   },
 ]);

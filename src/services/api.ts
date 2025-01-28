@@ -16,6 +16,7 @@ export async function fetchRecipes({
     }`
   );
   const data: FetchedRecipesResponse = await res.json();
+
   return data;
 }
 
