@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import AppLayout from './components/AppLayout';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Login from './pages/Login';
+import { AuthProvider } from './contexts/AuthContext';
 
 const queryClient = new QueryClient();
 
@@ -30,12 +31,14 @@ const Router = createBrowserRouter([
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="664350819916-rdliolsue4gt7imj1ot6rnmpbomd2me3.apps.googleusercontent.com">
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={Router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </GoogleOAuthProvider>
+    <AuthProvider>
+      <GoogleOAuthProvider clientId="664350819916-rdliolsue4gt7imj1ot6rnmpbomd2me3.apps.googleusercontent.com">
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={Router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,8 +1,10 @@
+import { useAuth } from '../contexts/AuthContext';
 import Button from './Button';
 import Logo from './Logo';
 import styles from './Navigation.module.css';
 
 function Navigation() {
+  const { isAuthenticated } = useAuth();
   return (
     <nav>
       <div className={styles.flexNav}>
@@ -29,9 +31,13 @@ function Navigation() {
             </li>
           </div>
           <li>
-            <Button textOnly={true} href="/login">
-              Login
-            </Button>
+            {isAuthenticated ? (
+              <div>Loggedin</div>
+            ) : (
+              <Button textOnly={true} href="/login">
+                Login
+              </Button>
+            )}
           </li>
         </ul>
       </div>
