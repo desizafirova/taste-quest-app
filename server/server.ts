@@ -1,6 +1,9 @@
 import express, { Request, Response } from 'express';
 import mysql from 'mysql';
 import cors from 'cors'; // Cross-Origin Resource Sharing - in order to send information between frontend and backend
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
 
 const app = express();
 app.use(express.json());
@@ -10,7 +13,7 @@ const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
   port: 3306,
-  password: 'D3s!sl@v@',
+  password: process.env.NODE_ENV_PASS,
   database: 'LoginSystem',
 });
 
@@ -22,16 +25,10 @@ db.connect((err) => {
   }
 });
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 app.post('/register', (req: Request, res: Response) => {
   const { username, password } = req.body;
-
-  // if (!username || !password) {
-  //   return res
-  //     .status(400)
-  //     .json({ error: 'Username and password are required' });
-  // }
 
   // Insert the new user into the database
   db.query(
@@ -47,6 +44,31 @@ app.post('/register', (req: Request, res: Response) => {
         message: 'User registered successfully',
         userId: result.insertId,
       });
+    }
+  );
+});
+
+app.post('/login', (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  // Insert the new user into the database
+  db.query(
+    'SELECT * From users WHERE username = ? AND password = ?',
+    [username, password],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error occurred' });
+      }
+
+      if (result.length > 0) {
+        return res.status(200).json({
+          message: 'User logged in successfully',
+          userId: result.insertId,
+        });
+      } else {
+        return res.status(401).json({ message: 'Wrong username or password' });
+      }
     }
   );
 });
