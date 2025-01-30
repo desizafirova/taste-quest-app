@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function LoginForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginStatus, setLoginStatus] = useState<string>('');
+
+  axios.defaults.withCredentials = true;
 
   const login = () => {
     if (!username || !password) {
@@ -18,25 +20,22 @@ function LoginForm() {
         username: username,
         password: password,
       })
-      .then((res) => {
-        console.log('Login response:', res.data);
-
-        if (res.data.message) {
-          setLoginStatus('Login successful!');
+      .then((response) => {
+        if (response.data.message) {
+          setLoginStatus(response.data.message);
         } else {
-          setLoginStatus('Unexpected response format.');
-        }
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-
-        if (error.response) {
-          setLoginStatus(error.response.data.error || 'Login failed!');
-        } else {
-          setLoginStatus('Network error. Please try again.');
+          setLoginStatus(response.data[0].username);
         }
       });
   };
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/login').then((response) => {
+      if (response.data.loggedIn === true) {
+        setLoginStatus(response.data.user[0].username);
+      }
+    });
+  }, []);
 
   return (
     <div>

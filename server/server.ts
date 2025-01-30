@@ -3,6 +3,9 @@ import mysql from 'mysql';
 import cors from 'cors'; // Cross-Origin Resource Sharing - in order to send information between frontend and backend
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 dotenv.config({ path: '.env.local' });
 
@@ -28,7 +31,34 @@ db.connect((err) => {
   }
 });
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    methods: ['GET', 'POST'],
+    credentials: true, // allows the cookie to be enabled
+  })
+);
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true })); // allows the body to be parsed
+
+declare module 'express-session' {
+  interface SessionData {
+    user: { [key: string]: any };
+  }
+}
+
+app.use(
+  session({
+    name: 'userId',
+    secret: process.env.NODE_ENV_SECRET || 'default_secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: new Date(Date.now() + 60 * 60 * 24 * 1000), //24h
+    },
+  })
+);
 
 app.post('/register', (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -53,6 +83,14 @@ app.post('/register', (req: Request, res: Response) => {
   });
 });
 
+app.get('/login', (req, res) => {
+  if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
+
 app.post('/login', (req: Request, res: Response) => {
   const { username, password } = req.body;
 
@@ -68,6 +106,8 @@ app.post('/login', (req: Request, res: Response) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
+            req.session.user = result;
+            console.log(req.session.user);
             res.send({ message: 'Successfully logged in' });
           } else {
             res.send({ message: 'Wrong username/password combination' });
