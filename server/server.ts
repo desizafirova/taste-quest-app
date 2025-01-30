@@ -1,11 +1,14 @@
-import express, { Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import mysql from 'mysql';
 import cors from 'cors'; // Cross-Origin Resource Sharing - in order to send information between frontend and backend
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 dotenv.config({ path: '.env.local' });
 
-const app = express();
+const saltRounds = 10;
+
+const app: Application = express();
 app.use(express.json());
 
 // MySQL connection
@@ -30,22 +33,24 @@ app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.post('/register', (req: Request, res: Response) => {
   const { username, password } = req.body;
 
-  // Insert the new user into the database
-  db.query(
-    'INSERT INTO users (username, password) VALUES (?, ?)',
-    [username, password],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Database error occurred' });
-      }
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    // Insert the new user into the database
+    db.query(
+      'INSERT INTO users (username, password) VALUES (?, ?)',
+      [username, hash],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'Database error occurred' });
+        }
 
-      res.status(201).json({
-        message: 'User registered successfully',
-        userId: result.insertId,
-      });
-    }
-  );
+        res.status(201).json({
+          message: 'User registered successfully',
+          userId: result.insertId,
+        });
+      }
+    );
+  });
 });
 
 app.post('/login', (req: Request, res: Response) => {
@@ -53,21 +58,23 @@ app.post('/login', (req: Request, res: Response) => {
 
   // Insert the new user into the database
   db.query(
-    'SELECT * From users WHERE username = ? AND password = ?',
-    [username, password],
+    'SELECT * From users WHERE username = ?',
+    [username],
     (err, result) => {
       if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database error occurred' });
+        res.send({ err: err });
       }
 
       if (result.length > 0) {
-        return res.status(200).json({
-          message: 'User logged in successfully',
-          userId: result.insertId,
+        bcrypt.compare(password, result[0].password, (error, response) => {
+          if (response) {
+            res.send({ message: 'Successfully logged in' });
+          } else {
+            res.send({ message: 'Wrong username/password combination' });
+          }
         });
       } else {
-        return res.status(401).json({ message: 'Wrong username or password' });
+        res.send({ message: 'User does not exist' });
       }
     }
   );
