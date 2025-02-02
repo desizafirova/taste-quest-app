@@ -1,41 +1,40 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function LoginForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loginStatus, setLoginStatus] = useState<string>('');
+  const [loginStatus, setLoginStatus] = useState(false);
 
   axios.defaults.withCredentials = true;
 
   const login = () => {
-    if (!username || !password) {
-      console.log('Username and Password are required');
-      setLoginStatus('Username and Password are required');
-      return;
-    }
-
     axios
       .post('http://localhost:3001/login', {
-        username: username,
-        password: password,
+        username,
+        password,
       })
       .then((response) => {
-        if (response.data.message) {
-          setLoginStatus(response.data.message);
+        if (!response.data.auth) {
+          setLoginStatus(false);
         } else {
-          setLoginStatus(response.data[0].username);
+          localStorage.setItem('token', response.data.token);
+          setLoginStatus(true);
         }
       });
   };
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/login').then((response) => {
-      if (response.data.loggedIn === true) {
-        setLoginStatus(response.data.user[0].username);
-      }
-    });
-  }, []);
+  const isUserAuthenticated = () => {
+    axios
+      .get('http://localhost:3001/isUserAuth', {
+        headers: {
+          'x-access-token': localStorage.getItem('token'),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  };
 
   return (
     <div>
@@ -59,7 +58,11 @@ function LoginForm() {
         }}
       />
       <button onClick={login}>Login</button>
-      <p>{loginStatus || null}</p>
+      {loginStatus && (
+        <button onClick={isUserAuthenticated}>
+          Check whether you are authenticated
+        </button>
+      )}
     </div>
   );
 }

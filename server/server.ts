@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import { NextFunction } from 'express-serve-static-core';
 
 dotenv.config({ path: '.env.local' });
 
@@ -83,6 +85,33 @@ app.post('/register', (req: Request, res: Response) => {
   });
 });
 
+interface AuthRequest extends Request {
+  user?: string | jwt.JwtPayload;
+  userId?: number;
+}
+
+const verifyJWT = (req: AuthRequest, res: Response, next: NextFunction) => {
+  const token = req.headers['x-access-token'] as string | undefined;
+  const jwtsecret = process.env.NODE_ENV_JWT;
+  if (!token) {
+    res.send('We need a token, please give it to us next time!');
+  } else {
+    jwt.verify(token, jwtsecret as Secret, (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: 'You failed to authenticate' });
+      } else {
+        req.userId = (decoded as JwtPayload).id as number;
+        next();
+      }
+    });
+  }
+};
+
+//  applying middleware to every request - verifyJWT
+app.get('/isUserAuth', verifyJWT, (req, res) => {
+  res.send('You are authenticated');
+});
+
 app.get('/login', (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
@@ -106,15 +135,24 @@ app.post('/login', (req: Request, res: Response) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
+            const id = result[0].id;
+            const jwtsecret = process.env.NODE_ENV_JWT;
+            const token = jwt.sign({ id }, jwtsecret as Secret, {
+              expiresIn: 300, // 5mins
+            });
+
             req.session.user = result;
-            console.log(req.session.user);
-            res.send({ message: 'Successfully logged in' });
+
+            res.json({ auth: true, token: token, result: result });
           } else {
-            res.send({ message: 'Wrong username/password combination' });
+            res.json({
+              auth: false,
+              message: 'Wrong username/password combination',
+            });
           }
         });
       } else {
-        res.send({ message: 'User does not exist' });
+        res.json({ auth: false, message: 'No user exists' });
       }
     }
   );
