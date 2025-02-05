@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useLogin } from '../contexts/LoginContext';
 
 function LoginForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loginStatus, setLoginStatus] = useState(false);
+  const { loginStatus, setLoginStatus } = useLogin();
 
   axios.defaults.withCredentials = true;
 
