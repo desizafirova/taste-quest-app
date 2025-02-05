@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import styles from './RegistrationForm.module.css';
 
 function RegistrationForm() {
   const [usernameReg, setUsernameReg] = useState<string>('');
@@ -22,25 +23,31 @@ function RegistrationForm() {
   };
 
   return (
-    <div>
+    <div className={styles.regForm}>
       <h1>Registration</h1>
-      <label>Username</label>
-      <input
-        type="text"
-        value={usernameReg}
-        onChange={(e) => {
-          setUsernameReg(e.target.value);
-        }}
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        value={passwordReg}
-        onChange={(e) => {
-          setPasswordReg(e.target.value);
-        }}
-      />
-      <button onClick={register}>Register</button>
+      <div className={styles.FlexInput}>
+        <label>Username</label>
+        <input
+          type="text"
+          value={usernameReg}
+          onChange={(e) => {
+            setUsernameReg(e.target.value);
+          }}
+        />
+      </div>
+      <div className={styles.FlexInput}>
+        <label>Password</label>
+        <input
+          type="password"
+          value={passwordReg}
+          onChange={(e) => {
+            setPasswordReg(e.target.value);
+          }}
+        />
+      </div>
+      <button onClick={register} className={styles.button}>
+        Register
+      </button>
     </div>
   );
 }

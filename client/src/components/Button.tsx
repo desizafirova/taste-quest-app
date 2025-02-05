@@ -24,7 +24,7 @@ export default function Button(props: ButtonOrAnchorProps) {
 
   const className = textOnly
     ? `${styles.button} ${styles.buttonTextOnly}`
-    : styles.button;
+    : `${styles.button}`;
 
   if (isAnchorProps(props))
     return (

@@ -1,0 +1,10 @@
+.pageFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 7rem;
+  margin-top: 10dvh;
+}
+
+.heading {
+  text-align: center;
+}
