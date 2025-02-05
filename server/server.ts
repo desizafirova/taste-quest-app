@@ -158,4 +158,15 @@ app.post('/login', (req: Request, res: Response) => {
   );
 });
 
+app.post('/logout', (req: Request, res: Response) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Logout error', err);
+      return res.status(500).json({ error: 'Failed to log out' });
+    }
+    res.clearCookie('userId');
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
+});
+
 app.listen(3001, () => console.log('Server running on port 3001'));

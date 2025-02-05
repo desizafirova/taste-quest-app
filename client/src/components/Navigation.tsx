@@ -1,10 +1,24 @@
+import axios from 'axios';
 import { useLogin } from '../contexts/LoginContext';
 import Button from './Button';
 import Logo from './Logo';
 import styles from './Navigation.module.css';
 
 function Navigation() {
-  const { loginStatus } = useLogin();
+  const { loginStatus, setLoginStatus } = useLogin();
+
+  const logout = () => {
+    axios
+      .post('http://localhost:3001/logout', {}, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data.message);
+        setLoginStatus(false);
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error);
+      });
+  };
+
   return (
     <nav>
       <div className={styles.flexNav}>
@@ -32,7 +46,9 @@ function Navigation() {
           </div>
           <li>
             {loginStatus ? (
-              <Button textOnly={true}>Logout</Button>
+              <Button textOnly={true} onClick={logout} href="/">
+                Logout
+              </Button>
             ) : (
               <Button textOnly={true} href="/login">
                 Login
