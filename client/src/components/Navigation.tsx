@@ -3,20 +3,23 @@ import { useLogin } from '../contexts/LoginContext';
 import Button from './Button';
 import Logo from './Logo';
 import styles from './Navigation.module.css';
+import { FaRegHeart } from 'react-icons/fa6';
+import { IconContext } from 'react-icons';
 
 function Navigation() {
   const { loginStatus, setLoginStatus } = useLogin();
 
-  const logout = () => {
-    axios
-      .post('http://localhost:3001/logout', {}, { withCredentials: true })
-      .then((response) => {
-        console.log(response.data.message);
-        setLoginStatus(false);
-      })
-      .catch((error) => {
-        console.error('Logout failed:', error);
-      });
+  const logout = async () => {
+    try {
+      await axios.post(
+        'http://localhost:3001/logout',
+        {},
+        { withCredentials: true }
+      );
+      setLoginStatus(false);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   return (
@@ -44,17 +47,34 @@ function Navigation() {
               </Button>
             </li>
           </div>
-          <li>
-            {loginStatus ? (
-              <Button textOnly={true} onClick={logout} href="/">
-                Logout
-              </Button>
-            ) : (
-              <Button textOnly={true} href="/login">
-                Login
-              </Button>
+          <div className={styles.logginRelatedButtons}>
+            {loginStatus && (
+              <li>
+                <Button textOnly={true}>
+                  <IconContext.Provider
+                    value={{
+                      color: '#2a3d45',
+                      className: 'react-icons',
+                      size: '2rem',
+                    }}
+                  >
+                    <FaRegHeart />
+                  </IconContext.Provider>
+                </Button>
+              </li>
             )}
-          </li>
+            <li>
+              {loginStatus ? (
+                <Button textOnly={true} onClick={logout} href="/">
+                  Logout
+                </Button>
+              ) : (
+                <Button textOnly={false} href="/login">
+                  Login
+                </Button>
+              )}
+            </li>
+          </div>
         </ul>
       </div>
     </nav>

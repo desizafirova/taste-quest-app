@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import styles from './RegistrationForm.module.css';
+import Button from './Button';
 
 function RegistrationForm() {
   const [usernameReg, setUsernameReg] = useState<string>('');
@@ -45,9 +46,9 @@ function RegistrationForm() {
           }}
         />
       </div>
-      <button onClick={register} className={styles.button}>
+      <Button textOnly={false} onClick={register}>
         Register
-      </button>
+      </Button>
     </div>
   );
 }

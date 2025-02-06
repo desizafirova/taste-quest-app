@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 1.4dvh;
   width: 100dvw;
 }
 
@@ -11,8 +11,6 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin: 0;
-  padding: 0;
   width: 100%;
 }
 
@@ -21,6 +19,13 @@
   gap: 2rem;
 }
 
-.flexUl > li:last-child {
+.flexUl > li:nth-last-child(2) {
   margin-left: auto;
+}
+
+.logginRelatedButtons {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+  align-items: center;
 }
