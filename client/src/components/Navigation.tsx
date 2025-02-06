@@ -50,7 +50,7 @@ function Navigation() {
           <div className={styles.logginRelatedButtons}>
             {loginStatus && (
               <li>
-                <Button textOnly={true}>
+                <Button textOnly={true} href="/favourites">
                   <IconContext.Provider
                     value={{
                       color: '#2a3d45',

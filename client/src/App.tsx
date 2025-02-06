@@ -7,6 +7,8 @@ import Recipe from './pages/Recipe';
 import Home from './pages/Home';
 import AppLayout from './components/AppLayout';
 import Login from './pages/Login';
+import ProtectedRoute from './pages/ProtectedRoute';
+import Favourites from './pages/Favourites';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,11 @@ const Router = createBrowserRouter([
       },
       { path: '/recipes/:id', element: <Recipe /> },
       { path: '/login', element: <Login /> },
+      {
+        path: 'favourites',
+        element: <ProtectedRoute />,
+        children: [{ path: '', element: <Favourites /> }],
+      },
     ],
   },
 ]);

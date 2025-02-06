@@ -11,6 +11,7 @@ type LoginContextProps = {
   loginStatus: boolean;
   setLoginStatus: (status: boolean) => void;
   checkLoginStatus: () => void;
+  loadingLogin: boolean;
 };
 
 const LoginContext = createContext<LoginContextProps | undefined>(undefined);
@@ -19,6 +20,7 @@ export const LoginProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [loginStatus, setLoginStatus] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(true);
 
   const checkLoginStatus = async () => {
     try {
@@ -28,12 +30,14 @@ export const LoginProvider: React.FC<{ children: ReactNode }> = ({
 
       if (response.data.auth) {
         setLoginStatus(true);
+        setLoadingLogin(false);
       } else {
         setLoginStatus(false);
       }
     } catch (error) {
       console.error('Error checking login status:', error);
       setLoginStatus(false);
+      setLoadingLogin(false);
     }
   };
 
@@ -43,7 +47,7 @@ export const LoginProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <LoginContext.Provider
-      value={{ loginStatus, setLoginStatus, checkLoginStatus }}
+      value={{ loginStatus, setLoginStatus, checkLoginStatus, loadingLogin }}
     >
       {children}
     </LoginContext.Provider>
