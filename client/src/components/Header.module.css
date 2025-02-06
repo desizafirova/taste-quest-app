@@ -2,7 +2,10 @@
   position: sticky;
   top: 0;
   width: 100dvw;
-  background-color: var(--color-coyote);
+  background-color: var(--color-dun);
   height: 10dvh;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

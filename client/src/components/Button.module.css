@@ -1,5 +1,5 @@
 .button {
-  background-color: var(--color-khaki);
+  background-color: var(--color-rose);
   color: var(--color-dun-light);
   border: none;
   border-radius: 8px;
@@ -13,7 +13,7 @@
 
 .button:hover,
 .button:active {
-  background-color: var(--color-khaki-dark);
+  background-color: var(--color-dark-rose);
   color: var(--color-dun-light);
 }
 
