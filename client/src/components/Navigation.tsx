@@ -5,7 +5,8 @@ import Logo from './Logo';
 import styles from './Navigation.module.css';
 import { FaRegHeart } from 'react-icons/fa6';
 import { IconContext } from 'react-icons';
-
+import { CgProfile } from 'react-icons/cg';
+import { TbLogout } from 'react-icons/tb';
 function Navigation() {
   const { loginStatus, setLoginStatus } = useLogin();
 
@@ -63,10 +64,33 @@ function Navigation() {
                 </Button>
               </li>
             )}
+            {loginStatus && (
+              <li>
+                <Button textOnly={true} href="/profile">
+                  <IconContext.Provider
+                    value={{
+                      color: '#2a3d45',
+                      className: 'react-icons',
+                      size: '2rem',
+                    }}
+                  >
+                    <CgProfile />
+                  </IconContext.Provider>
+                </Button>
+              </li>
+            )}
             <li>
               {loginStatus ? (
                 <Button textOnly={true} onClick={logout} href="/">
-                  Logout
+                  <IconContext.Provider
+                    value={{
+                      color: '#2a3d45',
+                      className: 'react-icons',
+                      size: '2rem',
+                    }}
+                  >
+                    <TbLogout />
+                  </IconContext.Provider>
                 </Button>
               ) : (
                 <Button textOnly={false} href="/login">

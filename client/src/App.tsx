@@ -9,6 +9,7 @@ import AppLayout from './components/AppLayout';
 import Login from './pages/Login';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Favourites from './pages/Favourites';
+import UserProfile from './pages/UserProfile';
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,11 @@ const Router = createBrowserRouter([
         path: 'favourites',
         element: <ProtectedRoute />,
         children: [{ path: '', element: <Favourites /> }],
+      },
+      {
+        path: '/profile',
+        element: <ProtectedRoute />,
+        children: [{ path: '', element: <UserProfile /> }],
       },
     ],
   },

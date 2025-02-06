@@ -21,7 +21,6 @@
 
 .logginRelatedButtons {
   display: flex;
-  gap: 1rem;
   margin-left: auto;
   margin-right: 2dvw;
   align-items: center;
