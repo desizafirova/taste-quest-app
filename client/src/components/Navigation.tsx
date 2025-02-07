@@ -59,7 +59,7 @@ function Navigation() {
                       size: '2rem',
                     }}
                   >
-                    <FaRegHeart />
+                    <FaRegHeart className={styles.reactIcon} />
                   </IconContext.Provider>
                 </Button>
               </li>
@@ -70,11 +70,11 @@ function Navigation() {
                   <IconContext.Provider
                     value={{
                       color: '#2a3d45',
-                      className: 'react-icons',
+                      className: 'react-icons ',
                       size: '2rem',
                     }}
                   >
-                    <CgProfile />
+                    <CgProfile className={styles.reactIcon} />
                   </IconContext.Provider>
                 </Button>
               </li>
@@ -85,11 +85,11 @@ function Navigation() {
                   <IconContext.Provider
                     value={{
                       color: '#2a3d45',
-                      className: 'react-icons',
+                      className: 'react-icons ',
                       size: '2rem',
                     }}
                   >
-                    <TbLogout />
+                    <TbLogout className={styles.reactIcon} />
                   </IconContext.Provider>
                 </Button>
               ) : (

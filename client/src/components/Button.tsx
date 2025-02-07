@@ -5,12 +5,14 @@ type ButtonProps = {
   href?: never;
   children: ReactNode;
   textOnly?: boolean;
+  logo?: boolean;
 } & Omit<ComponentPropsWithoutRef<'button'>, 'textOnly'>;
 
 type AnchorProps = {
   href?: string;
   children: ReactNode;
   textOnly?: boolean;
+  logo?: boolean;
 } & Omit<ComponentPropsWithoutRef<'a'>, 'textOnly'>;
 
 type ButtonOrAnchorProps = ButtonProps | AnchorProps;
@@ -20,7 +22,7 @@ function isAnchorProps(props: ButtonProps | AnchorProps): props is AnchorProps {
 }
 
 export default function Button(props: ButtonOrAnchorProps) {
-  const { textOnly, children, ...otherProps } = props;
+  const { textOnly, children, logo, ...otherProps } = props;
 
   const className = textOnly
     ? `${styles.button} ${styles.buttonTextOnly}`
@@ -30,6 +32,7 @@ export default function Button(props: ButtonOrAnchorProps) {
     return (
       <a
         className={className}
+        style={logo ? { borderBottom: 'none' } : {}}
         {...(otherProps as ComponentPropsWithoutRef<'a'>)}
       >
         {children}

@@ -7,7 +7,7 @@
   cursor: pointer;
   text-decoration: none;
   font: inherit;
-  transition: all 0.5s ease;
+  transition: color 0.5s ease;
   font-size: 1.4rem;
 }
 
@@ -26,6 +26,8 @@
 
 .button.buttonTextOnly:hover,
 .button.buttonTextOnly:active {
-  color: var(--color-charcoal);
-  font-weight: 700;
+  color: var(--color-dark-charcoal);
+  /* font-weight: 700; */
+  border-radius: 0;
+  border-bottom: 2px dashed var(--color-dark-rose);
 }
