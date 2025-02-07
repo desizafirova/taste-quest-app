@@ -1,9 +1,7 @@
+import Missions from '../components/Missions';
+
 function OurMission() {
-  return (
-    <>
-      <div>Our Mission</div>
-    </>
-  );
+  return <Missions />;
 }
 
 export default OurMission;

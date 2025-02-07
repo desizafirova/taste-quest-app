@@ -1,0 +1,26 @@
+.missionBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
+  padding: 2rem;
+  padding-right: 4rem;
+  border-radius: 0.7rem;
+  background-color: var(--color-dun-mid);
+  width: 65%;
+  margin: 0 auto;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.img {
+  width: 20%;
+  border-radius: 0.7rem;
+  object-fit: cover;
+}
+
+.p {
+  color: var(--color-light-charcoal);
+  font-size: 1.6rem;
+  width: 70%;
+  font-weight: 600;
+}

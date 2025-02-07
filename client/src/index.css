@@ -24,7 +24,8 @@
   --color-light--3: #d6dee0;
 
   --color-dun-light: #fff6eb;
-  --color-dun: #ddc9b4;
+  --color-dun-mid: #d1bda428;
+  --color-dun: #dbccbc;
   --color-coyote: #7a6c5da4;
   --color-khaki: #bcac9b;
   --color-khaki-dark: #ad9f8f;
@@ -32,6 +33,7 @@
   --color-rose: #c17c74;
   --color-dark-rose: #c0645a;
   --color-charcoal: #2a3d45;
+  --color-light-charcoal: #2a3d45b4;
   --color-dark-charcoal: #090c0e;
 }
 
