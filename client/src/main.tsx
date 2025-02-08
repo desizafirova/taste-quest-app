@@ -1,4 +1,4 @@
-// import { StrictMode } from 'react'
+// import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
@@ -8,11 +8,10 @@ import FallbackComponent from './components/FallbackComponent.tsx';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
-  <ErrorBoundary fallback={<FallbackComponent />}>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
-  </ErrorBoundary>
-
-  // </StrictMode>,
+    <ErrorBoundary FallbackComponent={FallbackComponent}>
+      <LoginProvider>
+        <App />
+      </LoginProvider>
+    </ErrorBoundary>
+  // </StrictMode>
 );
