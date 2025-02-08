@@ -11,6 +11,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import Favourites from './pages/Favourites';
 import UserProfile from './pages/UserProfile';
 import FallbackComponent from './components/FallbackComponent';
+import NotFound from './pages/NotFound';
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,7 @@ const Router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <FallbackComponent />,
+        element: <NotFound />,
       },
     ],
   },
