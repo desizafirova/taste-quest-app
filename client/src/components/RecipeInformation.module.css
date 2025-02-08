@@ -1,9 +1,11 @@
 .main {
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 70dvw;
+  margin-top: 2dvh;
 }
 
 .title {
@@ -31,7 +33,6 @@
   max-width: 30rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 1.3rem;
