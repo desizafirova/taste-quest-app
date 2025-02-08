@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Favourites from './pages/Favourites';
 import UserProfile from './pages/UserProfile';
+import FallbackComponent from './components/FallbackComponent';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,10 @@ const Router = createBrowserRouter([
         path: '/profile',
         element: <ProtectedRoute />,
         children: [{ path: '', element: <UserProfile /> }],
+      },
+      {
+        path: '*',
+        element: <FallbackComponent />,
       },
     ],
   },
