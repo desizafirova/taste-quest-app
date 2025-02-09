@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IoShareOutline } from 'react-icons/io5';
+import { FaRegHeart } from 'react-icons/fa6';
 import { fetchRecipe, fetchRecipes } from '../services/api';
 import Spinner from './Spinner';
 import { AnalyzedRecipe, FetchedRecipesResponse } from '../types/recipe';
@@ -7,6 +9,7 @@ import styles from './RecipeInformation.module.css';
 
 function RecipeInformation() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // Fetch single recipe details
   const {
@@ -66,6 +69,30 @@ function RecipeInformation() {
           />
         )}
         <h2 className={styles.title}>{currentRecipeTitle}</h2>
+      </div>
+      <div className={styles.buttons}>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          &larr;
+        </button>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            navigator.share({
+              title: currentRecipeTitle,
+              url: `${window.location.origin}/recipes/${id}`,
+            });
+          }}
+        >
+          <IoShareOutline />
+        </button>
+        <button className={styles.btn} onClick={() => {}}>
+          <FaRegHeart />
+        </button>
       </div>
       <div className={styles.ingredientsAndInstructionsFlex}>
         {/* Ingredients */}
