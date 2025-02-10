@@ -1,13 +1,25 @@
+import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import RegistrationForm from '../components/RegistrationForm';
 import styles from './Login.module.css';
+import Button from '../components/Button';
 
 function Login() {
+  const [isOpenedReg, setIsOpenedReg] = useState(false);
   return (
     <main className={styles.pageFlex}>
       <LoginForm />
-      <h2 className={styles.heading}> OR...</h2>
-      <RegistrationForm />
+      <h3 className={styles.heading}>
+        Don't have an account yet?{' '}
+        <Button
+          textOnly={true}
+          noBorder={true}
+          onClick={() => setIsOpenedReg(true)}
+        >
+          Sign up
+        </Button>
+      </h3>
+      {isOpenedReg && <RegistrationForm />}
     </main>
   );
 }
