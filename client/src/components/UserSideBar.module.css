@@ -1,0 +1,14 @@
+.userSideBar {
+  height: 100dvh;
+  width: 15dvw;
+  background-color: var(--color-dun-mid);
+}
+
+.ul {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  padding-top: 2dvh;
+}

@@ -1,5 +1,11 @@
+import UserSideBar from '../components/UserSideBar';
+
 function UserProfile() {
-  return <div>User Profile</div>;
+  return (
+    <div>
+      <UserSideBar />
+    </div>
+  );
 }
 
 export default UserProfile;
