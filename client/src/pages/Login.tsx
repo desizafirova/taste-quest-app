@@ -5,7 +5,7 @@ import styles from './Login.module.css';
 import Button from '../components/Button';
 
 function Login() {
-  const [isOpenedReg, setIsOpenedReg] = useState(false);
+  const [isOpenedReg, setIsOpenedReg] = useState<boolean>(false);
   return (
     <main className={styles.pageFlex}>
       <LoginForm />

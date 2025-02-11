@@ -17,7 +17,10 @@ function RegistrationForm() {
         username: usernameReg,
         password: passwordReg,
       })
-      .then((res) => console.log(res))
+      .then(() => {
+        setUsernameReg('');
+        setPasswordReg('');
+      })
       .catch((error) => {
         console.error('There was an error registering!', error);
       });
