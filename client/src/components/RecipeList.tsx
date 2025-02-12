@@ -4,10 +4,9 @@ import { type FetchedRecipesResponse } from '../types/recipe';
 import Spinner from './Spinner';
 import Button from './Button';
 import styles from './RecipeList.module.css';
-import { useNavigate } from 'react-router';
 import { useState } from 'react';
+import RecipeCard from './RecipeCard';
 function RecipeList() {
-  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const recipesPerPage = 12;
 
@@ -34,34 +33,14 @@ function RecipeList() {
     <div className={styles.pageFlex}>
       <ul className={styles.styleUl}>
         {data?.results.map((recipe) => (
-          <div className={styles.containerCard}>
-            <li key={recipe.id} className={styles.flex}>
-              <div>
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  className={styles.img}
-                />
-                <h2 className={styles.h2}>{recipe.title}</h2>
-              </div>
-              <div className={styles.cardFooter}>
-                <Button
-                  textOnly={false}
-                  onClick={() => {
-                    navigate(`/recipes/${recipe.id}`, {
-                      state: {
-                        page,
-                        number: recipesPerPage,
-                        offset: (page - 1) * recipesPerPage,
-                      },
-                    });
-                  }}
-                >
-                  Go to the recipe &rarr;
-                </Button>
-              </div>
-            </li>
-          </div>
+          <RecipeCard
+            key={recipe.id}
+            id={recipe.id}
+            image={recipe.image}
+            title={recipe.title}
+            page={page}
+            recipesPerPage={recipesPerPage}
+          />
         ))}
       </ul>
 

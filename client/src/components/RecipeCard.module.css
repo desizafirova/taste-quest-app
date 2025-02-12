@@ -1,0 +1,36 @@
+.h2 {
+  text-wrap-mode: stable;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30rem;
+  height: 100%;
+}
+
+.img {
+  border-top-left-radius: 7%;
+  border-top-right-radius: 7%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.containerCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff88;
+  padding: 1rem;
+  border-radius: 7%;
+  height: 37rem;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  width: 100%;
+}
