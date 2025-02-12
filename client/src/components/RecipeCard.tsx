@@ -6,8 +6,8 @@ type RecipeCardProps = {
   id: number | string;
   title: string;
   image: string;
-  page: number;
-  recipesPerPage: number;
+  page?: number;
+  recipesPerPage?: number;
 };
 
 function RecipeCard(props: RecipeCardProps) {
@@ -26,11 +26,14 @@ function RecipeCard(props: RecipeCardProps) {
             textOnly={false}
             onClick={() => {
               navigate(`/recipes/${id}`, {
-                state: {
-                  page,
-                  number: recipesPerPage,
-                  offset: (page - 1) * recipesPerPage,
-                },
+                state:
+                  page && recipesPerPage
+                    ? {
+                        page,
+                        number: recipesPerPage,
+                        offset: (page - 1) * recipesPerPage,
+                      }
+                    : undefined,
               });
             }}
           >

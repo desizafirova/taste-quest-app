@@ -15,7 +15,7 @@ function RecipeInformation() {
   const location = useLocation();
   const { number = 10, offset = 0 } = location.state || {};
   const { favourites, addFavourite, removeFavourite } = useFavourites();
-  const isFavourite = favourites.includes(id!);
+  const isFavourite = favourites.some((recipe) => recipe.id === id);
   // Fetch single recipe details
   const {
     data: recipeDetails,
@@ -96,12 +96,17 @@ function RecipeInformation() {
         <button
           className={styles.btn}
           onClick={() =>
-            isFavourite ? removeFavourite(id!) : addFavourite(id!)
+            isFavourite
+              ? removeFavourite(id!)
+              : addFavourite({
+                  id: id!,
+                  title: currentRecipeTitle,
+                  image: currentRecipeImage,
+                })
           }
         >
           {isFavourite ? <FaHeart /> : <FaRegHeart />}
         </button>
-        ;
       </div>
       <div className={styles.ingredientsAndInstructionsFlex}>
         {/* Ingredients */}

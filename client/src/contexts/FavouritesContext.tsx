@@ -1,39 +1,64 @@
-import { createContext, ReactNode, useContext, useReducer } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
 
-type FavouritesContextProps = {
-  favourites: string[];
-  addFavourite: (recipeId: string) => void;
-  removeFavourite: (recipeId: string) => void;
+type FRecipe = {
+  id: number | string;
+  title: string;
+  image: string;
 };
 
-type FavouritesState = string[];
+type FavouritesState = FRecipe[];
 type FavouritesAction =
-  | { type: 'ADD'; id: string }
-  | { type: 'REMOVE'; id: string };
+  | { type: 'ADD'; recipe: FRecipe } // Accepts full recipe object
+  | { type: 'REMOVE'; id: string | number };
 
-function favouritesReducer(state: FavouritesState, action: FavouritesAction) {
+const FavouritesContext = createContext<{
+  favourites: FavouritesState;
+  addFavourite: (recipe: FRecipe) => void;
+  removeFavourite: (id: string | number) => void;
+} | null>(null);
+
+const favouritesReducer = (
+  state: FavouritesState,
+  action: FavouritesAction
+): FavouritesState => {
   switch (action.type) {
     case 'ADD':
-      return state.includes(action.id) ? state : [...state, action.id];
+      return state.some((recipe) => recipe.id === action.recipe.id)
+        ? state
+        : [...state, action.recipe];
     case 'REMOVE':
-      return state.filter((id) => id !== action.id);
+      return state.filter((recipe) => recipe.id !== action.id);
     default:
       return state;
   }
-}
-
-const FavouritesContext = createContext<FavouritesContextProps | null>(null);
+};
 
 export function FavouritesProvider({ children }: { children: ReactNode }) {
-  const [favourites, dispatch] = useReducer(favouritesReducer, []);
+  // Load favourites from localStorage if available
+  const savedFavourites = localStorage.getItem('favourites');
+  const initialFavourites: FavouritesState = savedFavourites
+    ? JSON.parse(savedFavourites)
+    : [];
 
-  function addFavourite(id: string) {
-    dispatch({ type: 'ADD', id });
-  }
+  const [favourites, dispatch] = useReducer(
+    favouritesReducer,
+    initialFavourites
+  );
 
-  function removeFavourite(id: string) {
+  // Sync favourites to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+  }, [favourites]); // Runs every time favourites change
+
+  const addFavourite = (recipe: FRecipe) => dispatch({ type: 'ADD', recipe });
+  const removeFavourite = (id: string | number) =>
     dispatch({ type: 'REMOVE', id });
-  }
 
   return (
     <FavouritesContext.Provider

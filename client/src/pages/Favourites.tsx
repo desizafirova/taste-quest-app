@@ -1,9 +1,7 @@
+import FavouritesList from '../components/FavouritesList';
+
 function Favourites() {
-    return (
-        <div>
-            Favourites Recipes
-        </div>
-    )
+  return <FavouritesList />;
 }
 
-export default Favourites
+export default Favourites;
