@@ -8,10 +8,10 @@ import FallbackComponent from './components/FallbackComponent.tsx';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
+  <LoginProvider>
     <ErrorBoundary FallbackComponent={FallbackComponent}>
-      <LoginProvider>
-        <App />
-      </LoginProvider>
+      <App />
     </ErrorBoundary>
+  </LoginProvider>
   // </StrictMode>
 );

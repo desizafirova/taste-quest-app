@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IoShareOutline } from 'react-icons/io5';
 import { FaRegHeart } from 'react-icons/fa6';
 import { fetchRecipe, fetchRecipes } from '../services/api';
@@ -10,7 +10,8 @@ import styles from './RecipeInformation.module.css';
 function RecipeInformation() {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const { number = 10, offset = 0 } = location.state || {};
   // Fetch single recipe details
   const {
     data: recipeDetails,
@@ -31,13 +32,11 @@ function RecipeInformation() {
     isError: isErrorAllRecipes,
   } = useQuery<FetchedRecipesResponse>({
     queryKey: ['recipes', { number: 10, offset: 0 }], // Provide default values
-    queryFn: () => fetchRecipes({ number: 10, offset: 0 }), // Pass parameters explicitly
+    queryFn: () => fetchRecipes({ number, offset }),
   });
 
-  // Handle loading state
   if (isLoadingRecipeDetails || isLoadingAllRecipes) return <Spinner />;
 
-  // Handle errors
   if (isErrorRecipeDetails || isErrorAllRecipes) {
     return (
       <div>

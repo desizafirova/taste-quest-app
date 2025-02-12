@@ -48,7 +48,13 @@ function RecipeList() {
                 <Button
                   textOnly={false}
                   onClick={() => {
-                    navigate(`/recipes/${recipe.id}`);
+                    navigate(`/recipes/${recipe.id}`, {
+                      state: {
+                        page,
+                        number: recipesPerPage,
+                        offset: (page - 1) * recipesPerPage,
+                      },
+                    });
                   }}
                 >
                   Go to the recipe &rarr;
