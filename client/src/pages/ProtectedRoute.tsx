@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { useLogin } from '../contexts/LoginContext';
 
@@ -7,7 +7,7 @@ function ProtectedRoute() {
 
   if (loadingLogin) return <Spinner />;
 
-  return loginStatus ? <Outlet /> : <Navigate to={'/login'} replace />;
+  return loginStatus ? <Outlet /> : <Navigate to="/login" replace />;
 }
 
 export default ProtectedRoute;

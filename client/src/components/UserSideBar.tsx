@@ -6,7 +6,7 @@ function UserSideBar() {
     <nav className={styles.userSideBar}>
       <ul className={styles.ul}>
         <li className={styles.li}>
-          <Button textOnly={true} noBorder={true}>
+          <Button textOnly={true} noBorder={true} href="/profile/myrecipes">
             My Recipes
           </Button>
         </li>

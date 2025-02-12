@@ -1,22 +1,21 @@
 .userSideBar {
-  height: 100dvh;
-  width: 15dvw;
+  width: 100dvw;
   background-color: var(--color-dun-mid);
 }
 
 .ul {
   display: flex;
   list-style: none;
-  flex-direction: column;
   gap: 1.5rem;
   align-items: center;
-  padding-top: 2dvh;
+  padding: 1rem;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.116);
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.116);
+  width: 100%;
 }
 
 .li {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.116);
-  width: 90%;
 }

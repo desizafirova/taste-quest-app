@@ -79,27 +79,15 @@ const Router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: (
-          <Suspense fallback={<Spinner />}>
-            <ProtectedRoute />
-          </Suspense>
-        ),
+        element: <ProtectedRoute />,
         children: [
           {
             path: '',
-            element: (
-              <Suspense fallback={<Spinner />}>
-                <UserProfile />
-              </Suspense>
-            ),
+            element: <UserProfile />,
             children: [
               {
-                path: '/profile/myrecipes',
-                element: (
-                  <Suspense fallback={<Spinner />}>
-                    <MyRecipes />
-                  </Suspense>
-                ),
+                path: 'myrecipes',
+                element: <MyRecipes />,
               },
             ],
           },

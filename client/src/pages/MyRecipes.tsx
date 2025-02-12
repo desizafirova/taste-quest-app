@@ -1,5 +1,7 @@
+import MyRecipesList from '../components/MyRecipesList';
+
 function MyRecipes() {
-  return <div></div>;
+  return <MyRecipesList />;
 }
 
 export default MyRecipes;

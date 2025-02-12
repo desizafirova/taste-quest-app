@@ -1,0 +1,12 @@
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 5dvh;
+  margin-bottom: 5dvh;
+  color: var(--color-light-charcoal);
+  font-size: 3rem;
+  font-weight: 700;
+  font-style: italic;
+  text-underline-position: below;
+  text-decoration: underline wavy 0.1rem;
+}
