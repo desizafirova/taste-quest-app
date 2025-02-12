@@ -2,16 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IoShareOutline } from 'react-icons/io5';
 import { FaRegHeart } from 'react-icons/fa6';
+import { FaHeart } from 'react-icons/fa6';
 import { fetchRecipe, fetchRecipes } from '../services/api';
 import Spinner from './Spinner';
 import { AnalyzedRecipe, FetchedRecipesResponse } from '../types/recipe';
 import styles from './RecipeInformation.module.css';
+import { useFavourites } from '../contexts/FavouritesContext';
 
 function RecipeInformation() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { number = 10, offset = 0 } = location.state || {};
+  const { favourites, addFavourite, removeFavourite } = useFavourites();
+  const isFavourite = favourites.includes(id!);
   // Fetch single recipe details
   const {
     data: recipeDetails,
@@ -89,9 +93,15 @@ function RecipeInformation() {
         >
           <IoShareOutline />
         </button>
-        <button className={styles.btn} onClick={() => {}}>
-          <FaRegHeart />
+        <button
+          className={styles.btn}
+          onClick={() =>
+            isFavourite ? removeFavourite(id!) : addFavourite(id!)
+          }
+        >
+          {isFavourite ? <FaHeart /> : <FaRegHeart />}
         </button>
+        ;
       </div>
       <div className={styles.ingredientsAndInstructionsFlex}>
         {/* Ingredients */}
