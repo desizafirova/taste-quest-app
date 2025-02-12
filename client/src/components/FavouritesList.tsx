@@ -8,16 +8,20 @@ function FavouritesList() {
   return (
     <div>
       <h1 className={styles.title}>Favourites List</h1>
-      <ul className={styles.list}>
-        {favourites.map((favourite) => (
-          <RecipeCard
-            key={favourite.id}
-            id={favourite.id}
-            image={favourite.image}
-            title={favourite.title}
-          />
-        ))}
-      </ul>
+      {favourites.length ? (
+        <ul className={styles.list}>
+          {favourites.map((favourite) => (
+            <RecipeCard
+              key={favourite.id}
+              id={favourite.id}
+              image={favourite.image}
+              title={favourite.title}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p className={styles.p}>No recipes in the Favourites list... 🙄</p>
+      )}
     </div>
   );
 }
