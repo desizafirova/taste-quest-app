@@ -13,7 +13,7 @@ function Navigation() {
   const logout = async () => {
     try {
       await axios.post(
-        'http://localhost:3001/logout',
+        'http://localhost:3001/auth/logout',
         {},
         { withCredentials: true }
       );

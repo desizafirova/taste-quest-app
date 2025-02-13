@@ -13,7 +13,7 @@ function RegistrationForm() {
       return;
     }
     axios
-      .post('http://localhost:3001/register', {
+      .post('http://localhost:3001/auth/register', {
         username: usernameReg,
         password: passwordReg,
       })

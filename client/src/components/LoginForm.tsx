@@ -16,7 +16,7 @@ function LoginForm() {
   const login = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3001/login',
+        'http://localhost:3001/auth/login',
         { username, password },
         { withCredentials: true } // ✅ Send credentials (cookies) to the server
       );
