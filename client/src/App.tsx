@@ -5,6 +5,7 @@ import AppLayout from './components/AppLayout';
 import { lazy, Suspense } from 'react';
 import Spinner from './components/Spinner';
 import MyRecipes from './pages/MyRecipes';
+import PublicRoute from './pages/PublicRoute';
 
 const queryClient = new QueryClient();
 
@@ -57,11 +58,17 @@ const Router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: (
-          <Suspense fallback={<Spinner />}>
-            <Login />
-          </Suspense>
-        ),
+        element: <PublicRoute />,
+        children: [
+          {
+            path: '',
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <Login />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: 'favourites',
