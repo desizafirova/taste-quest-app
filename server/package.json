@@ -5,18 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server/server.ts"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec ts-node src/middleware/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/mysql": "^2.15.26",
     "@types/node": "^22.12.0",
+    "globals": "^15.15.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.8",
