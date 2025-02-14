@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import db from '../db/dbSetup';
 import authRoutes from '../routes/authRoutes';
-// import recipeRoutes from '../routes/recipeRoutes';
+import recipeRoutes from '../routes/recipeRoutes';
 
 dotenv.config({ path: '.env.local' });
 
@@ -26,7 +26,7 @@ app.use(
 
 // Use Routes
 app.use('/auth', authRoutes);
-//app.use('/recipes', recipeRoutes);
+app.use('/recipes', recipeRoutes);
 
 // Start the server
 app.listen(3001, () => console.log('Server running on port 3001'));

@@ -1,33 +1,49 @@
-/*
-import { Router, Request, Response } from 'express';
-import db from '../db/dbSetup'; // Import the database connection
+import express, { Router } from 'express';
+import db from '../db/dbSetup';
 
 const router = Router();
 
+router.post(
+  '/add-recipe',
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> => {
+    try {
+      const { title, image, ingredients, steps } = req.body;
 
-router.post('/add-recipe', (req: Request, res: Response) => {
-  const { title, image, ingredients, steps } = req.body;
+      if (!title || !ingredients || !steps) {
+        res.status(400).json({ message: 'Missing required fields' });
+        return;
+      }
 
-  if (!title || !ingredients || !steps) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
+      const query =
+        'INSERT INTO recipes (title, image, ingredients, steps) VALUES (?, ?, ?, ?)';
+      const values = [
+        title,
+        image,
+        JSON.stringify(ingredients),
+        JSON.stringify(steps),
+      ];
 
-  const query =
-    'INSERT INTO recipes (title, image, ingredients, steps) VALUES (?, ?, ?, ?)';
-  const values = [title, image, ingredients, steps];
+      db.query(query, values, (err: any, result: any) => {
+        if (err) {
+          console.error('Database error:', err);
+          res.status(500).json({ error: 'Database error occurred' });
+          return;
+        }
 
-  db.query(query, values, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Database error occurred' });
+        res.status(201).json({
+          message: 'Recipe added successfully',
+          recipeId: result.insertId,
+        });
+      });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      next(error);
     }
-
-    res.status(201).json({
-      message: 'Recipe added successfully',
-      recipeId: result.insertId,
-    });
-  });
-});
+  }
+);
 
 export default router;
-*/
